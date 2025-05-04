@@ -1,0 +1,39 @@
+#cloud-config
+autoinstall:
+  version: 1
+  identity:
+    hostname: ubuntu
+    username: Sanjay.KS
+    password: "$6$rounds=4096$h7sUwRuJcWbiOYIK$L8rFbL3so7WxZ1GOeJxtGgn2V8Dxf1xeNktF7AydqKBrWcWRO7JpC/8AUPld0PgWgLg1XFFY5Ig7vL1.QMS6G."
+  ssh:
+    install-server: true
+  storage:
+    layout:
+      name: direct
+  keyboard:
+    layout: us
+    variant: ''
+  locale: en_US
+  timezone: UTC
+  network:
+    network:
+      version: 2
+      ethernets:
+        eth0:
+          dhcp4: true
+  packages:
+    - docker.io
+    - docker-compose
+    - git
+    - code
+    - sublime-text
+    - openssh-server
+    - terraform
+    - jenkins
+  user-data:
+    disable_root: false
+  late-commands:
+    - curtin in-target -- apt-get update
+    - curtin in-target -- apt-get upgrade -y
+    - curtin in-target -- mkdir -p /home/Sanjay.KS/Desktop/Docker-Hosted-Service
+    - curtin in-target -- chown -R Sanjay.KS:Sanjay.KS /home/Sanjay.KS/Desktop/Docker-Hosted-Service
